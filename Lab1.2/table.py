@@ -1,7 +1,10 @@
 from matplotlib import pyplot
 from openpyxl import load_workbook
+
+
 def getvalue(x):
     return x.value
+
 
 wb = load_workbook('data_analysis_lab.xlsx')
 
