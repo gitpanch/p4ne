@@ -9,9 +9,16 @@ def getvalue(x):
 wb = load_workbook('data_analysis_lab.xlsx')
 
 cell = wb['Data']
-y = list(map(getvalue, cell['A'][1:]))
-t = list(map(getvalue, cell['C'][1:]))
-a = list(map(getvalue, cell['D'][1:]))
-pyplot.plot(y, t, label="Температура")
-pyplot.plot(y, a, label="Активность")
+
+years = list(map(getvalue, cell['A'][1:]))
+temp = list(map(getvalue, cell['C'][1:]))
+activ = list(map(getvalue, cell['D'][1:]))
+
+pyplot.plot(years, temp, label="Температура")
+pyplot.plot(years, activ, label="Активность")
+
+pyplot.xlabel('Годы')
+pyplot.ylabel('Температура/Активность Солнца')
+pyplot.legend(loc='upper left')
+
 pyplot.show()
