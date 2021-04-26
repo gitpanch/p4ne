@@ -3,6 +3,8 @@
 import re
 import glob
 from ipaddress import IPv4Interface
+from openpyxl import load_workbook,Workbook
+
 
 def classify(s):
 
@@ -39,3 +41,4 @@ for current_file_name in glob.glob("C:\\Users\\Pancho\\Google Диск\\Обуч
 print(ip_addresses)
 print(interfaces)
 print(hosts)
+
