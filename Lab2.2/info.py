@@ -12,11 +12,7 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/index')
 def index():
-    s = """
-        This server shows information about
-        configs on /configs request and about 
-        IP addresses on /config/<b>hostname</b> request"
-    """
+    s = "HELLO"
     return s
 
 @app.route('/configs')
