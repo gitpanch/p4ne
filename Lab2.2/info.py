@@ -35,7 +35,7 @@ def ip_info(hostname):
 
 if __name__ == '__main__':
 
-    for current_file_name in glob.glob("/Users/mk/Seafile/p4ne_training/config_files/*.txt"):
+    for current_file_name in glob.glob("C:\\Users\\Pancho\\Google Диск\\Обучение\\python\\my\\p4ne\\Lab1.5\\config_files\\*.txt"):
         hosts[current_file_name] = {}
         hosts[current_file_name]['addresses'] = []
 
