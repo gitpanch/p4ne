@@ -1,23 +1,27 @@
 import requests, json, pprint
+
 from flask import Flask
 from flask import render_template, jsonify
 
 
 # controller = "devnetapi.cisco.com/sandbox/apic_em"
+
 controller = "sandboxapicem.cisco.com"
 
-def ticket():
+def new_ticket():
     url = 'https://' + controller + '/api/v1/ticket'
     payload = {"username": "devnetuser",
                "password": "Cisco123!"
               }
     header = {"content-type": "application/json"}
 
-    response = requests.post(url, data=json.dumps(payload), headers=header, verify=False)
+    response = requests.post(url, data=json.dumps(payload),
+                             headers=header, verify=False)
+
     return response.json()['response']['serviceTicket']
 
 
-def hosts(ticket):
+def get_hosts(ticket):
     url = "https://" + controller + "/api/v1/host"
 
     header = {"content-type": "application/json",
@@ -25,10 +29,11 @@ def hosts(ticket):
              }
 
     response = requests.get(url, headers=header, verify=False)
+
     return response.json()
 
 
-def devices(ticket):
+def get_devices(ticket):
     url = "https://" + controller + "/api/v1/network-device"
 
     header = {"content-type": "application/json",
@@ -36,9 +41,10 @@ def devices(ticket):
               }
 
     response = requests.get(url, headers=header, verify=False)
+
     return response.json()
 
-def topolog(ticket):
+def get_topo(ticket):
     url = "https://" + controller + "/api/v1/topology/physical-topology"
 
     header = {"content-type": "application/json",
@@ -46,6 +52,7 @@ def topolog(ticket):
               }
 
     response = requests.get(url, headers=header, verify=False)
+
     return response.json()
 
 
@@ -57,19 +64,22 @@ def index():
 
 @app.route("/api/topology")
 def topology():
-    ticket = ticket()
-    return jsonify(topolog(ticket)['response'])
+    ticket = new_ticket()
+    return jsonify(get_topo(ticket)['response'])
 
 if __name__ == '__main__':
 
-    ticket = ticket()
+    ticket = new_ticket()
+
 
     print("Hosts = ")
-    pprint.pprint(hosts(ticket))
+    pprint.pprint(get_hosts(ticket))
+
     print("Devices = ")
-    pprint.pprint(devices(ticket))
+    pprint.pprint(get_devices(ticket))
+
     print("Topology = ")
-    pprint.pprint(topolog(ticket))
+    pprint.pprint(get_topo(ticket))
 
     app.run(debug=True)
 
